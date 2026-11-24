@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Site Notes">
+<title>Site Notes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <nav class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">SN</span>
+        <span class="brand-name">Site Notes</span>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-item" data-route="reports" style="--nav-accent:#DBA157;">
+          <span class="nav-dot"></span> Reports <span class="nav-count" id="countReports"></span>
+        </button>
+        <button class="nav-item" data-route="backup" style="--nav-accent:#57AADB;">
+          <span class="nav-dot"></span> Backup &amp; Restore
+        </button>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="save-indicator" id="saveIndicator">
+          <span class="save-dot"></span> <span id="saveText">Saved</span>
+        </div>
+        <div class="clock" id="clock"></div>
+      </div>
+    </nav>
+
+    <main class="content" id="content">
+      <!-- rendered by app.js -->
+    </main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="printArea"></div>
+
+  <input type="file" id="fileCam" accept="image/*" capture="environment" hidden>
+  <input type="file" id="fileLib" accept="image/*" multiple hidden>
+  <input type="file" id="fileImport" accept="application/json,.json" hidden>
+
+  <script src="app.js"></script>
+</body>
+</html>

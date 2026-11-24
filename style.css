@@ -1,0 +1,572 @@
+:root {
+  --bg: #14171C;
+  --panel: #1C2029;
+  --panel-alt: #21262F;
+  --border: #2A2F3A;
+  --text: #E7E9EC;
+  --text-muted: #8A93A3;
+  --text-faint: #5C6577;
+
+  --amber: #E8A33D;
+  --green: #4CAF7D;
+  --red: #E85D5D;
+  --slate: #6C7A93;
+  --yellow: #D9C23D;
+  --blue: #5B9BD5;
+
+  --font-ui: "Segoe UI", "Segoe UI Variable", system-ui, -apple-system, sans-serif;
+  --font-data: "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", Menlo, "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  height: 100%;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+a { color: var(--blue); }
+
+/* Layout */
+.app {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 22px 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-mark {
+  font-family: var(--font-data);
+  font-weight: 700;
+  background: var(--amber);
+  color: #1A1300;
+  border-radius: 4px;
+  padding: 3px 7px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.brand-name {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel-alt);
+  border: 1px solid var(--nav-accent, var(--border));
+  color: var(--text-muted);
+  text-align: left;
+  padding: 9px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13.5px;
+}
+
+.nav-item:hover {
+  color: var(--text);
+  filter: brightness(1.15);
+}
+
+.nav-item.active {
+  color: var(--text);
+  background: var(--panel);
+  box-shadow: inset 3px 0 0 var(--nav-accent, var(--amber));
+}
+
+.nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--nav-accent, var(--slate));
+}
+
+.nav-count {
+  margin-left: auto;
+  font-family: var(--font-data);
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-data);
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.save-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.save-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  transition: background 0.2s;
+}
+.save-indicator.dirty .save-dot { background: var(--amber); }
+
+.content {
+  padding: 28px 36px 60px 36px;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* Typography */
+h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.2px;
+}
+h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--text);
+}
+.subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin: 0 0 22px 0;
+}
+
+.mono { font-family: var(--font-data); }
+
+/* Page header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.header-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+.btn {
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+.btn:hover { border-color: var(--text-faint); }
+.btn:disabled { opacity: 0.35; cursor: default; }
+.btn-primary {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #1A1300;
+  font-weight: 600;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-danger { color: var(--red); }
+.btn-small { padding: 4px 10px; font-size: 12px; }
+
+/* Cards / panels */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 22px;
+}
+
+/* Status rail rows */
+.rail-list { display: flex; flex-direction: column; gap: 6px; }
+
+.rail-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--slate);
+  border-radius: 5px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.rail-row:hover { border-color: var(--text-faint); border-left-width: 4px; }
+.rail-row.status-open { border-left-color: var(--amber); }
+.rail-row.status-complete { border-left-color: var(--green); }
+
+.rail-main { flex: 1; min-width: 0; }
+.rail-title { font-weight: 500; font-size: 13.5px; }
+.rail-sub { color: var(--text-muted); font-size: 11.5px; margin-top: 2px; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+}
+
+/* Filters */
+.filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  max-width: 420px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 7px 14px;
+  color: var(--text);
+}
+.search-input:focus { outline: none; border-color: var(--amber); }
+
+/* Detail pages */
+.back-link {
+  background: none; border: none; color: var(--text-muted); cursor: pointer;
+  font-size: 12.5px; padding: 0; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 5px;
+}
+.back-link:hover { color: var(--text); }
+
+.empty-state {
+  color: var(--text-faint);
+  font-size: 13px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  display: flex; align-items: center; justify-content: center; z-index: 100;
+}
+.modal {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px 24px;
+  width: 440px;
+  max-width: 92vw;
+  max-height: 86vh;
+  overflow-y: auto;
+}
+.modal.modal-wide { width: 640px; }
+.modal h2 { margin-bottom: 16px; }
+.field { margin-bottom: 13px; }
+.field label {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.field input, .field select, .field textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: var(--text);
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--amber);
+}
+.field textarea { resize: vertical; }
+.field-row { display: flex; gap: 10px; }
+.field-row .field { flex: 1; min-width: 0; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+
+/* ---------- Site visit report: numbered notes (same pattern as Meeting Minutes) ---------- */
+.meeting-point {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.meeting-point:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.meeting-point textarea, .sub-note textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+.meeting-point textarea:focus, .sub-note textarea:focus { outline: none; border-color: var(--amber); }
+
+.note-num { color: var(--text-faint); padding-top: 9px; min-width: 30px; }
+.note-ctrls { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.note-body { margin-left: 40px; }
+.note-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+.sub-note {
+  margin: 14px 0 0 40px;
+  padding-left: 14px;
+  border-left: 3px solid var(--amber);
+}
+
+/* Photos attached to a note */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+.photo-thumb {
+  position: relative;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.photo-thumb img {
+  display: block;
+  width: 100%;
+  height: 115px;
+  object-fit: cover;
+  cursor: zoom-in;
+}
+.photo-thumb input {
+  width: 100%;
+  background: var(--bg);
+  border: none;
+  border-top: 1px solid var(--border);
+  padding: 6px 8px;
+  font-size: 12px;
+  color: var(--text);
+}
+.photo-thumb input:focus { outline: none; box-shadow: inset 0 -2px 0 var(--amber); }
+.photo-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+.photo-remove:hover { background: var(--red); }
+
+.photo-viewer img { display: block; max-width: 100%; max-height: 68vh; margin: 0 auto; border-radius: 6px; }
+.photo-viewer p { text-align: center; color: var(--text-muted); margin: 10px 0 0; }
+
+.export-preview {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: var(--text);
+  font-family: var(--font-data);
+  font-size: 12px;
+  line-height: 1.45;
+  resize: vertical;
+}
+.export-note { font-size: 11.5px; color: var(--text-muted); margin: -8px 0 14px; line-height: 1.5; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  background: var(--panel-alt);
+  border: 1px solid var(--amber);
+  color: var(--text);
+  padding: 9px 18px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  z-index: 200;
+}
+
+/* ---------- Responsive layouts ----------
+   app.js measures the window and sets <html data-layout="phone|tablet|laptop|desktop">
+   and data-orientation="portrait|landscape" (see applyLayout). Rules below key off those. */
+.fab { display: none; }
+.note-row { display: flex; gap: 10px; align-items: flex-start; }
+
+/* Desktop (1200px+) is the default look above. */
+
+/* Laptop / iPad landscape (900-1199px): narrower sidebar */
+html[data-layout="laptop"] .app { grid-template-columns: 190px 1fr; }
+html[data-layout="laptop"] .content { padding: 24px 26px 60px; }
+
+/* Phone + tablet portrait (under 900px): sidebar becomes a slim top bar */
+html[data-layout="phone"] .app,
+html[data-layout="tablet"] .app { grid-template-columns: 1fr; }
+html[data-layout="phone"] .sidebar,
+html[data-layout="tablet"] .sidebar {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  height: auto;
+  padding: calc(env(safe-area-inset-top) + 8px) 14px 8px;
+  z-index: 50;
+}
+html[data-layout="phone"] .brand,
+html[data-layout="tablet"] .brand { border-bottom: none; margin: 0; padding: 0; }
+html[data-layout="phone"] .nav-group,
+html[data-layout="tablet"] .nav-group { flex-direction: row; flex: 1; min-width: 0; overflow-x: auto; }
+html[data-layout="phone"] .nav-item,
+html[data-layout="tablet"] .nav-item { white-space: nowrap; padding: 8px 12px; }
+html[data-layout="phone"] .sidebar-footer,
+html[data-layout="tablet"] .sidebar-footer { margin: 0; padding: 0; border-top: none; }
+html[data-layout="phone"] .save-indicator,
+html[data-layout="tablet"] .save-indicator { margin: 0; }
+html[data-layout="phone"] .clock,
+html[data-layout="tablet"] .clock { display: none; }
+html[data-layout="tablet"] .content { padding: 22px 24px 60px; }
+
+/* Phone only (under 600px) */
+html[data-layout="phone"] .brand-name,
+html[data-layout="phone"] .nav-count { display: none; }
+html[data-layout="phone"] .content { padding: 16px 14px 96px; }
+html[data-layout="phone"] h1 { font-size: 18px; }
+html[data-layout="phone"] .subtitle { margin-bottom: 14px; }
+html[data-layout="phone"] .page-header { flex-direction: column; gap: 10px; margin-bottom: 14px; }
+html[data-layout="phone"] .header-actions { justify-content: flex-start; width: 100%; }
+html[data-layout="phone"] .header-actions .btn { flex: 1; }
+html[data-layout="phone"] .panel { padding: 14px; margin-bottom: 14px; }
+html[data-layout="phone"] .field-row { flex-direction: column; gap: 0; }
+html[data-layout="phone"] .search-input { max-width: none; width: 100%; }
+html[data-layout="phone"] .rail-row { flex-wrap: wrap; }
+html[data-layout="phone"] .rail-main { flex-basis: 100%; }
+
+/* Notes on a phone: text box full width, controls underneath, no indent */
+html[data-layout="phone"] .note-row { flex-wrap: wrap; }
+html[data-layout="phone"] .note-row textarea { flex: 1 1 calc(100% - 44px); min-width: 0; }
+html[data-layout="phone"] .note-ctrls { order: 3; flex: 1 1 100%; justify-content: flex-start; }
+html[data-layout="phone"] .note-body { margin-left: 0; }
+html[data-layout="phone"] .sub-note { margin-left: 8px; padding-left: 10px; }
+html[data-layout="phone"] .note-actions .btn { flex: 1 1 auto; }
+html[data-layout="phone"] .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+html[data-layout="phone"] .photo-thumb img { height: 105px; }
+
+/* Floating "+ Note" button so you can add notes without scrolling back up */
+html[data-layout="phone"] .fab {
+  display: block;
+  position: fixed;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom) + 16px);
+  z-index: 60;
+  border: none;
+  border-radius: 28px;
+  padding: 14px 22px;
+  background: var(--amber);
+  color: #1A1300;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+/* Modals become full-width bottom sheets on a phone */
+html[data-layout="phone"] .modal-backdrop { align-items: flex-end; }
+html[data-layout="phone"] .modal,
+html[data-layout="phone"] .modal.modal-wide {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 14px 14px 0 0;
+  max-height: 90vh;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 18px);
+}
+
+/* Tablet portrait: notes keep their layout, photos a bit larger */
+html[data-layout="tablet"] .photo-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+
+/* Phone / tablet held sideways: shorter modals and photo viewer */
+html[data-orientation="landscape"][data-layout="phone"] .modal { max-height: 96vh; }
+html[data-orientation="landscape"][data-layout="phone"] .photo-viewer img { max-height: 55vh; }
+
+/* Touch screens (iPad): larger tap targets, and 16px inputs so Safari doesn't zoom on focus */
+@media (pointer: coarse) {
+  .btn { padding: 11px 16px; }
+  .btn-small { padding: 9px 14px; font-size: 13px; }
+  .nav-item { padding: 13px 12px; }
+  .photo-remove { width: 34px; height: 34px; font-size: 20px; }
+  input, select, textarea,
+  .field input, .field select, .field textarea,
+  .meeting-point textarea, .sub-note textarea,
+  .photo-thumb input, .search-input { font-size: 16px; }
+}
+
+/* Print / Save as PDF */
+#printArea { display: none; }
+@media print {
+  body > *:not(#printArea) { display: none !important; }
+  html, body { background: #fff; height: auto; }
+  #printArea { display: block; color: #000; font-family: var(--font-ui); font-size: 11pt; }
+  #printArea h1 { font-size: 20pt; margin: 0 0 4px; }
+  #printArea .meta { border-bottom: 2px solid #000; padding-bottom: 6px; margin-bottom: 10px; }
+  #printArea h3 { margin: 14px 0 4px; font-size: 12pt; border-bottom: 1px solid #999; }
+  #printArea .pn { margin: 8px 0; page-break-inside: avoid; }
+  #printArea .pn.s { margin-left: 22px; }
+  #printArea .pn b { display: inline-block; min-width: 34px; }
+  #printArea .pp { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 6px 34px; }
+  #printArea .pp figure { margin: 0; width: 48%; page-break-inside: avoid; }
+  #printArea .pp img { width: 100%; max-height: 3.2in; object-fit: contain; border: 1px solid #bbb; }
+  #printArea .pp figcaption { font-size: 9pt; color: #333; }
+  #printArea table { border-collapse: collapse; width: 100%; }
+  #printArea td, #printArea th { border: 1px solid #999; padding: 3px 6px; text-align: left; font-size: 10pt; }
+  @page { margin: 0.6in; }
+}
